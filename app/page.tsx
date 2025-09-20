@@ -1,35 +1,65 @@
 "use client"
 
+import { useState } from "react"
+import { Sidebar } from "@/components/sidebar"
+import { MRVDashboard } from "@/components/mrv-dashboard"
+import { TokenizationInterface } from "@/components/tokenization-interface"
+import { DataVisualization } from "@/components/data-visualization"
+import { AdminPanel } from "@/components/admin-panel"
+import { SettingsPage } from "@/components/settings-page"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 export default function HomePage() {
+  const [activeTab, setActiveTab] = useState("dashboard")
+
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Mangrove Guard - Blue Carbon Registry
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Smart India Hackathon 2024 Project
-          </p>
-          <p className="text-lg">
-            Blockchain-based monitoring, reporting, and verification for carbon credits
-          </p>
+    <div className="flex min-h-screen bg-background">
+      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <main className="flex-1 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-foreground mb-2">Blue Carbon Registry & MRV System</h1>
+            <p className="text-muted-foreground">
+              Blockchain-based monitoring, reporting, and verification for carbon credits
+            </p>
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-6">
+              <TabsTrigger value="dashboard">MRV Dashboard</TabsTrigger>
+              <TabsTrigger value="certification">MRV Certification</TabsTrigger>
+              <TabsTrigger value="tokenization">Tokenization</TabsTrigger>
+              <TabsTrigger value="visualization">Data Visualization</TabsTrigger>
+              <TabsTrigger value="admin">Admin Panel</TabsTrigger>
+              <TabsTrigger value="settings">Settings</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="dashboard">
+              <MRVDashboard />
+            </TabsContent>
+
+            <TabsContent value="certification">
+              <MRVDashboard />
+            </TabsContent>
+
+            <TabsContent value="tokenization">
+              <TokenizationInterface />
+            </TabsContent>
+
+            <TabsContent value="visualization">
+              <DataVisualization />
+            </TabsContent>
+
+            <TabsContent value="admin">
+              <AdminPanel />
+            </TabsContent>
+
+            <TabsContent value="settings">
+              <SettingsPage />
+            </TabsContent>
+          </Tabs>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2">MRV Dashboard</h3>
-            <p className="text-sm text-muted-foreground">Monitor carbon data</p>
-          </div>
-          <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2">Tokenization</h3>
-            <p className="text-sm text-muted-foreground">Convert to blockchain tokens</p>
-          </div>
-          <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2">Data Visualization</h3>
-            <p className="text-sm text-muted-foreground">View analytics and reports</p>
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   )
 }
