@@ -39,11 +39,16 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate API call
     setTimeout(() => {
-      setIsLoading(false)
-      // Redirect to dashboard after successful login
-      router.push("/dashboard")
+      // Check demo credentials
+      if (formData.email === "demo@bluecarbonregistry.com" && formData.password === "demo123") {
+        localStorage.setItem("isAuthenticated", "true")
+        setIsLoading(false)
+        router.push("/dashboard")
+      } else {
+        setIsLoading(false)
+        alert("Please use demo credentials: demo@bluecarbonregistry.com / demo123")
+      }
     }, 1500)
   }
 
@@ -301,4 +306,3 @@ export default function LoginPage() {
     </div>
   )
 }
-
