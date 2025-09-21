@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation"
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
   const [userInfo] = useState({
@@ -24,29 +25,35 @@ export default function DashboardPage() {
   })
 
   useEffect(() => {
-    // Check if user is authenticated (in real app, check token/session)
     const checkAuth = () => {
       // For demo purposes, we'll assume user is authenticated if they reached this page
-      setIsAuthenticated(true)
+      // In a real app, you would check localStorage, sessionStorage, or cookies for auth token
+      const isLoggedIn = localStorage.getItem("isAuthenticated") === "true" || true // Always true for demo
+      setIsAuthenticated(isLoggedIn)
+      setIsLoading(false)
     }
 
     checkAuth()
   }, [])
 
   const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated")
     setIsAuthenticated(false)
-    // In a real app, clear tokens/session here
     router.push("/")
   }
 
-  if (!isAuthenticated) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-lg text-muted-foreground mb-4">Redirecting to login...</p>
+          <p className="text-lg text-muted-foreground mb-4">Loading dashboard...</p>
         </div>
       </div>
     )
+  }
+
+  if (!isAuthenticated) {
+    return null
   }
 
   return (
@@ -118,3 +125,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+
