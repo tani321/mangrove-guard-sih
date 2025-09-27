@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const router = useRouter()
 
   const [userInfo] = useState({
-    name: "John Doe",
+    name: "Blue Nova",
     email: "demo@bluecarbonregistry.com",
     organization: "Blue Carbon Solutions",
   })
