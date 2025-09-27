@@ -105,19 +105,6 @@ export default function LoginPage() {
               </div>
             </div>
           </div>
-
-          {/* Demo Credentials */}
-          <div className="bg-white/50 backdrop-blur-sm rounded-lg p-4 border border-gray-200">
-            <h4 className="font-semibold text-gray-900 mb-2">Demo Credentials</h4>
-            <div className="space-y-1 text-sm text-gray-600">
-              <p>
-                <strong>Email:</strong> demo@bluecarbonregistry.com
-              </p>
-              <p>
-                <strong>Password:</strong> demo123
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Right side - Auth Form */}
@@ -289,6 +276,21 @@ export default function LoginPage() {
                       >
                         Forgot your password?
                       </Button>
+                    )}
+
+                    {/* Demo Credentials - Now visible on mobile and positioned below "Forgot your password?" */}
+                    {!isSignUp && (
+                      <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 mt-4">
+                        <h4 className="font-medium text-gray-900 text-sm mb-2">Demo Credentials</h4>
+                        <div className="space-y-1 text-xs text-gray-600">
+                          <p>
+                            <strong>Email:</strong> demo@bluecarbonregistry.com
+                          </p>
+                          <p>
+                            <strong>Password:</strong> demo123
+                          </p>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </>
